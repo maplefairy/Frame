@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div style="color:blue;" class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 class="text-center my_title"><b>ADD CATEGORY</b></h1>
+        <div >
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br>
+        </div>
+        <div>
+            <label for="id_slug">Slug:</label><br>
+            <input type="text" id="id_slug" name="slug"><br>
+        </div>
+        <div>
+            <label for="description">Description:</label><br>
+            <input type="text" name="description" id="description"><br>
+        </div>
+        <div>
+            <label for="image">Image:</label><br>
+            <input type="file" id="image" name="image" accept="image/*" required><br>
+        </div>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-info">ADD CATEGORY</button><br>
+        </div>
+    </form>
+</div>
+{% endblock %}

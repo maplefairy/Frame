@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div style="color:blue;" class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ f.as_p }}
+        <button class="btn btn-success" type="submit">Confirm</button>
+    </form>
+</div>
+{% endblock %}

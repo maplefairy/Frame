@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    Let's embark on this cinematic adventure together—frame by frame, friend by friend
+{% endblock %}
+{% block title %}
+    Profile
+{% endblock %}
+{% block content %}
+<body style="background-color: black">
+<div>
+<div style="padding-top: 25px; text-align:center;">
+    <div class="container">
+<div class="row">
+    <div>
+        {% if user.is_authenticated %}
+        <center>
+        <div class="card text-center mb-3" style="width: 18rem;">
+        <div class="card-body" style="background-color: black; color: white;">
+            <h5 class="card-title">Profile <i class="fa-solid fa-user"></i></h5><br>
+            <p class="card-text">Username : {{ user.username }}</p>
+            <p class="card-text">Name : {{ user.first_name }} {{ user.last_name }}</p>
+            <p class="card-text">Email_id : {{ user.email}}</p>
+            &nbsp;<a class="btn btn-success" href="{% url 'credit:update_profile' %}" role="button">Edit Profile </a>
+            &nbsp;<a class="btn btn-danger" href="{% url 'credit:delete_account' %}" role="button">Delete Account</a>
+        </div>
+        </div>
+            </center>
+                <div>
+                <br>
+                <h2 class="my_movie_title" style="text-align:center;">My Movies</h2>
+
+        <div class="container">
+            <div class="row mx-auto">
+                {% for movie in user_add_movies %}
+                    <div class="my_bottom_margin col-9 col-sm-12 col-md-4 xol-lg-4">
+                    <div class="card border-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card text-center" style="background-color: black; color: white;">
+                        <a href="{{movie.get_url}}"><img class="card-img-top" src="{{movie.image.url}}" alt="{{movie.name}}" height="380" width="250"></a>
+                    <div class="card-body" style="height : 100px; weight: auto;">
+                            <h4>{{movie.name}}</h4>
+                        <p>{{movie.r_date}}</p>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                {% empty %}
+                    <h5>You have not added any movies yet, feel free to add</h5>
+                {% endfor %}
+                </div>
+                </div>
+                 <div class="d-grid gap-1 col-6 mx-auto">
+                  <a class="btn btn-primary" href="{% url 'cinema:add_movie' %}" role="button">Add Movie</a>
+                 </div>
+                <br>
+
+            </div>
+        {% else %}
+            <p style="text-align: center;">Please sign in to access this page. Click <a href="{% url 'credit:login' %}">here</a> to Signin.</p>
+        {% endif %}
+            <br>
+    </div>
+    </div>
+</div>
+<br>
+</div>
+    {% if not watchlist_items %}
+        <h4 class="my_movie_title" style="text-align:center;">My Favourites</h4>
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">There is no movies on your favourite. Explore more.</h1>
+        <br>
+        <p class="text-center">Please click <a href="{% url 'cinema:allmoviescat' %}">Here</a> to explore more.</p>
+    </div>
+</div>
+{% else %}
+<div>
+    <div class="text-center">
+        <br>
+        <br>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+<div class="container">
+<div class="row mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+        <table class="table my_custom_table">
+            <thead class="my_custom_thead">
+            <tr>
+                <th colspan="5">
+                    Your Favourites
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for watchlist_item in watchlist_items %}
+            <tr>
+                <td>
+                    <a href="{{ watchlist_item.movie.get_url }}"><img src="{{watchlist_item.movie.image.url}}" alt="" style="width:70px; height:auto;" class="float_left rounded custom_image"> </a>
+                </td>
+                <td class="text-left">
+                    {{watchlist_item.movie.name}}
+                    <br>
+                    Id : {{watchlist_item.movie.id}}
+                    <br>
+                    Actors : {{watchlist_item.movie.actors}}
+                    <br>
+                <td class="text-left">
+                    &nbsp;<a href="{% url 'userprofile:full_remove' watchlist_item.movie.id %}" class="btn btn-info">Watched</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+         &nbsp;<a href="{% url 'cinema:allmoviescat' %}" class="btn btn-secondary btn-block my_custom_button">Explore more</a>
+    </div>
+   </div>
+</div>
+
+
+</div>
+</body>
+ {% endif %}
+ {% endif %}
+{% endblock %}

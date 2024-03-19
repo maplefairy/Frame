@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    {{ category.description|truncatewords:155 }}
+    Welcome to FrameFriends, the world of endless movie choices...
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+        {{ movie.name }} - FrameFriends
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_movie_row_class">
+    <div class="max_auto">
+        <p><a href="{% url 'cinema:allmoviescat' %}">Home</a>|<a href="{{movie.category.get_url}}">{{movie.category}}</a>|{{movie.name}}|</p>
+    </div>
+</div>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+            <div style="min-width:18rem;">
+            <br>
+                <img src="{{movie.image.url}}" alt="{{movie.name}}">
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6" style="color : skyblue;">
+            <h1 class="my_movie_title"><b>{{movie.name}}</b></h1><br>
+                <p class="my_title">Release On : {{movie.r_date}}</p>
+                <p class="my_title">Actors : {{movie.actors}}</p>
+                <p class="my_title"> Movie Description :</p>
+                <p class="text-justify my_movie_text">{{movie.description}}</p>
+            &nbsp;   <a class="btn btn-primary" href="{{movie.trailer}}" role="button">YouTube Trailer </a>
+                &nbsp;<a class="btn btn-info" href="{% url 'cinema:review_page' movie.id %}" role="button">Rate & Review</a>
+                &nbsp;<a class="btn btn-secondary" href="{% url 'userprofile:add_watchlist' movie.id %}" role="button">Add to watchlist</a>
+            <div>
+                <br>
+                {% if movie.user == request.user %}
+                &nbsp;<a class="btn btn-primary" href="{% url 'cinema:update_movie' movie.id %}">Update Movie</a>
+            &nbsp;&nbsp;  &nbsp;<a class="btn btn-danger" href="{% url 'cinema:delete_movie' movie.id %}">Delete Movie</a>
+                {% endif %}
+            </div>
+            <br>
+        </div>
+    </div>
+    <br>
+</div>
+<div>
+</div>
+{% endblock %}

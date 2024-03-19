@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Welcome To FrameFriends</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Hi, {{user.username}} your registration was successful.
+        FrameFriends welcomes you to be a part of our family. Feel free to explore it.
+        In the world of endless movie choices, FrameFriends allow users to share, discover and discuss the latest movies.
+        FrameFriends also allows users to contribute by adding new movies,
+          sharing thoughts through comments, and building a personalized list of your  favorites.
+        Here we share variety of collections of movies to entertain your free time with fun.
+         Are you looking for what to watch next? Then, FrameFriends is there to help you.
+          Let's start the journey together...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endif %}
+{% endblock %}
